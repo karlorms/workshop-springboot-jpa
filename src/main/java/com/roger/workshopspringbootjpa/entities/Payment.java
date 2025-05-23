@@ -1,15 +1,14 @@
 package com.roger.workshopspringbootjpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_order")
-public class Order {
+@Table(name = "tb_payment")
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,21 +17,17 @@ public class Order {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Instant moment;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private User client;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "order")
-    private Payment payment;
-
-    public Order() {
+    public Payment() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Payment(Long id, Instant moment, Order order) {
         this.id = id;
         this.moment = moment;
-        this.client = client;
+        this.order = order;
     }
 
     public Long getId() {
@@ -51,27 +46,19 @@ public class Order {
         this.moment = moment;
     }
 
-    public User getClient() {
-        return client;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals(id, order.id);
+        Payment payment = (Payment) o;
+        return Objects.equals(id, payment.id);
     }
 
     @Override

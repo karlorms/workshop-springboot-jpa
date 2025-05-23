@@ -1,7 +1,6 @@
 package com.roger.workshopspringbootjpa.resources;
 
 import com.roger.workshopspringbootjpa.entities.Order;
-import com.roger.workshopspringbootjpa.entities.User;
 import com.roger.workshopspringbootjpa.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
-public class OrderResources {
+public class OrderResource {
 
     @Autowired
     private OrderService orderService;

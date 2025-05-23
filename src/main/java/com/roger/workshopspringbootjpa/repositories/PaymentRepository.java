@@ -1,9 +1,9 @@
 package com.roger.workshopspringbootjpa.repositories;
 
-import com.roger.workshopspringbootjpa.entities.Order;
+import com.roger.workshopspringbootjpa.entities.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
 }
