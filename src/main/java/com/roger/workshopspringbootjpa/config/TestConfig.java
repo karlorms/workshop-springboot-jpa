@@ -1,14 +1,8 @@
 package com.roger.workshopspringbootjpa.config;
 
-import com.roger.workshopspringbootjpa.entities.Category;
-import com.roger.workshopspringbootjpa.entities.Order;
-import com.roger.workshopspringbootjpa.entities.Payment;
-import com.roger.workshopspringbootjpa.entities.User;
+import com.roger.workshopspringbootjpa.entities.*;
 import com.roger.workshopspringbootjpa.entities.enums.OrderStatus;
-import com.roger.workshopspringbootjpa.repositories.CategoryRepository;
-import com.roger.workshopspringbootjpa.repositories.OrderRepository;
-import com.roger.workshopspringbootjpa.repositories.PaymentRepository;
-import com.roger.workshopspringbootjpa.repositories.UserRepository;
+import com.roger.workshopspringbootjpa.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -33,12 +27,23 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        Product pr1 = new Product(null, "Product1", "Description1", 10.0, "https://imagem1.com");
+        Product pr2 = new Product(null, "Product2", "Description2", 20.0, "https://imagem2.com");
+
         Category c1 = new Category(null, "Category1");
         Category c2 = new Category(null, "Category2");
 
+        productRepository.saveAll(Arrays.asList(pr1, pr2));
         categoryRepository.saveAll(Arrays.asList(c1, c2));
+
+        pr1.getCategories().add(c1);
+        pr2.getCategories().add(c2);
+        productRepository.saveAll(Arrays.asList(pr1, pr2));
 
         User u1 = new User(null, "Name1", "email1@email.com", "999999999", "123456");
         User u2 = new User(null, "Name2", "email2@gmail.com", "999999999", "123456");
