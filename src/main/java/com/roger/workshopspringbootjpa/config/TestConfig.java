@@ -30,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Product pr1 = new Product(null, "Product1", "Description1", 10.0, "https://imagem1.com");
@@ -57,5 +60,10 @@ public class TestConfig implements CommandLineRunner {
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2));
         paymentRepository.saveAll(Arrays.asList(p1, p2));
+
+        OrderItem or1 = new OrderItem(o1, pr1, 2, pr1.getPrice());
+        OrderItem or2 = new OrderItem(o2, pr1, 3, pr1.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(or1, or2));
     }
 }
