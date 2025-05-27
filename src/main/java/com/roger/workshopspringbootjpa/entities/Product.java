@@ -1,5 +1,6 @@
 package com.roger.workshopspringbootjpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -23,6 +24,9 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     public Product() {}
 
@@ -80,6 +84,15 @@ public class Product {
 
     public void addCategory(Category category) {
         categories.add(category);
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrder() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem o : orderItems) {
+            set.add(o.getOrder());
+        }
+        return set;
     }
 
     @Override
