@@ -1,6 +1,7 @@
 package com.roger.workshopspringbootjpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -17,6 +18,7 @@ public class Payment {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;

@@ -26,8 +26,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
-
-    @JsonIgnore
+    
     @OneToOne(mappedBy = "order")
     private Payment payment;
 
