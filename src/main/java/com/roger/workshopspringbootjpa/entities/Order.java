@@ -26,12 +26,12 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
-    
-    @OneToOne(mappedBy = "order")
-    private Payment payment;
 
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL)
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order() {
     }
@@ -87,6 +87,14 @@ public class Order {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Double getTotal() {
+        double total = 0;
+        for (OrderItem item : items) {
+            total += item.getSubTotal();
+        }
+        return total;
     }
 
     @Override
