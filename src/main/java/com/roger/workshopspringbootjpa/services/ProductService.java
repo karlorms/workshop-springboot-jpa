@@ -2,6 +2,7 @@ package com.roger.workshopspringbootjpa.services;
 
 import com.roger.workshopspringbootjpa.entities.Product;
 import com.roger.workshopspringbootjpa.repositories.ProductRepository;
+import com.roger.workshopspringbootjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,6 @@ public class ProductService {
     }
 
     public Product findById(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

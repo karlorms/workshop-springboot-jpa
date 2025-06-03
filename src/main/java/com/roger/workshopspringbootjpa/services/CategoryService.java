@@ -2,6 +2,7 @@ package com.roger.workshopspringbootjpa.services;
 
 import com.roger.workshopspringbootjpa.entities.Category;
 import com.roger.workshopspringbootjpa.repositories.CategoryRepository;
+import com.roger.workshopspringbootjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findAll(){return categoryRepository.findAll();}
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
 
-    public Category findById(Long id){return categoryRepository.findById(id).get();}
+    public Category findById(Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
 }
